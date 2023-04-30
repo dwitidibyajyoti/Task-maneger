@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\TaskController;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Log;
@@ -65,6 +66,12 @@ use Illuminate\Support\Facades\Route;
 //     return response()->json(['date' => Carbon::parse($date)->format('Y-m-d'), 'time' => $timeArray]);
 
 // });
+
+Route::post('task/store',[TaskController::class,'store']);
+Route::get('task/show',[TaskController::class,'show']);
+Route::delete('task/delete/{id}',[TaskController::class,'destroy']);
+Route::post('task/update/{id}',[TaskController::class,'update']);
+
 
 
 
