@@ -67,11 +67,20 @@ use Illuminate\Support\Facades\Route;
 
 // });
 
-Route::post('task/store',[TaskController::class,'store']);
-Route::get('task/show',[TaskController::class,'show']);
-Route::delete('task/delete/{id}',[TaskController::class,'destroy']);
-Route::post('task/update/{id}',[TaskController::class,'update']);
+// Route::post('/store',[TaskController::class,'store']);
+// Route::get('/show',[TaskController::class,'show']);
+// Route::delete('/delete/{id}',[TaskController::class,'destroy']);
+// Route::post('/update/{id}',[TaskController::class,'update']);
 
 
 
 
+Route::group(['prefix' => 'task', 'middleware' => 'throttle:1000,10'], function () {
+
+
+
+    Route::post('/store', [TaskController::class, 'store']);
+    Route::get('/show', [TaskController::class, 'show']);
+    Route::delete('/delete/{id}', [TaskController::class, 'destroy']);
+    Route::post('/update/{id}', [TaskController::class, 'update']);
+});

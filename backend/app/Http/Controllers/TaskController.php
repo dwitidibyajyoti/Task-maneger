@@ -61,6 +61,16 @@ class TaskController extends Controller
      */
     public function update(Request $request, string $id)
     {
+
+        $validator = Validator::make($request->all(), [
+            'task' => 'required|max:60',
+            'priority' => 'required|in:1,2,3,4'
+        ]);
+
+        if ($validator->fails()) {
+            return response()->json(['errors' => $validator->errors()], 422);
+        }
+
         try {
             $updateArry = [];
             if ($request->task) {
